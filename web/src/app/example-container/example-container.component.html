@@ -1,0 +1,17 @@
+<div class="nui-wrapper">
+	<div class="popup-thing">
+		<div>
+			<h1>This is the NUI Pop-up!</h1>
+			<p>Exit with the escape key</p>
+			<button (click)="handleGetClientData()">Get Client Data</button>
+			<ng-container *ngIf="clientData">
+				<h5>Returned Data:</h5>
+				<pre>
+				<code>
+					{{ clientData | json}}
+				</code>
+				</pre>
+			</ng-container>
+		</div>
+	</div>
+</div>
