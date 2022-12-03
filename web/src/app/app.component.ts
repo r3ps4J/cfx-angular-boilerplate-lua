@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 		});
 
 		// This will set the NUI to visible if we are developing in browser
-		this.nui.dispatchDebugMessage([
+		this.nui.dispatchDebugMessages([
 			{
 				action: "setVisible",
 				data: true

@@ -59,7 +59,7 @@ export class NuiService {
 		return this.lastMessages[action] ?? false;
 	}
 
-	public dispatchDebugMessage<P>(events: NuiMessage<P>[], timeout = 1000): void {
+	public dispatchDebugMessages<P>(events: NuiMessage<P>[], timeout = 1000): void {
 		if (isDevMode() && this.isEnvBrowser()) {
 			for (const event of events) {
 				setTimeout(() => {
