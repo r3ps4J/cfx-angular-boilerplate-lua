@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, isDevMode } from "@angular/core";
 import { fromEvent, Observable, Subject } from "rxjs";
 
 interface NuiMessage<T = any> {
@@ -57,5 +57,15 @@ export class NuiService {
 
 	public getLastMessageData<T = any>(action: string): T | false {
 		return this.lastMessages[action] ?? false;
+	}
+
+	public dispatchDebugMessage<P>(events: NuiMessage<P>[], timeout = 1000): void {
+		if (isDevMode() && this.isEnvBrowser()) {
+			for (const event of events) {
+				setTimeout(() => {
+					window.dispatchEvent(new MessageEvent("message", { data: event }));
+				}, timeout);
+			}
+		}
 	}
 }
