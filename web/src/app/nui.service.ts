@@ -7,7 +7,7 @@ interface NuiMessage<T = any> {
 }
 
 @Injectable({
-	providedIn: "root",
+	providedIn: "root"
 })
 export class NuiService {
 	private resourceName: string = (window as any).GetParentResourceName
@@ -40,9 +40,9 @@ export class NuiService {
 		const options = {
 			method: "post",
 			headers: {
-				"Content-Type": "application/json; charset=UTF-8",
+				"Content-Type": "application/json; charset=UTF-8"
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify(data)
 		};
 		const response = await fetch(`https://${this.resourceName}/${eventName}`, options);
 		return await response.json();
