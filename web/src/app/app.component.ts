@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { NuiService } from "./nui.service";
 
 @Component({
@@ -26,5 +26,13 @@ export class AppComponent implements OnInit {
 				data: true
 			}
 		]);
+	}
+
+	@HostListener("window:keydown", ["$event"])
+	handleKeyboardEvent(event: KeyboardEvent) {
+		if (["Backspace", "Escape"].includes(event.code)) {
+			if (!this.nui.isEnvBrowser()) this.nui.fetchNui("hideFrame");
+			this.visible = false;
+		}
 	}
 }
