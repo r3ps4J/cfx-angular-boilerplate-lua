@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit, WritableSignal, signal } from "@angular/core";
 import { NuiService } from "./nui.service";
 
 @Component({
@@ -7,7 +7,7 @@ import { NuiService } from "./nui.service";
 	styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-	visible: boolean = false;
+	visible: WritableSignal<boolean> = signal(false);
 
 	constructor(private nui: NuiService) {}
 
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 		// This listens for the "setVisible" message
 		this.nui.fromMessageAction<boolean>("setVisible").subscribe({
 			next: (value) => {
-				this.visible = value;
+				this.visible.set(value);
 			}
 		});
 
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 	handleKeyboardEvent(event: KeyboardEvent) {
 		if (["Backspace", "Escape"].includes(event.code)) {
 			if (!this.nui.isEnvBrowser()) this.nui.fetchNui("hideFrame");
-			this.visible = false;
+			this.visible.set(false);
 		}
 	}
 }

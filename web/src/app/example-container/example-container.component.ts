@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, WritableSignal, signal } from "@angular/core";
 import { NuiService } from "../nui.service";
 
 interface ReturnData {
@@ -10,10 +10,10 @@ interface ReturnData {
 @Component({
 	selector: "app-example-container",
 	templateUrl: "./example-container.component.html",
-	styleUrls: ["./example-container.component.scss"]
+	styleUrls: ["./example-container.component.scss"],
 })
 export class ExampleContainerComponent {
-	clientData?: ReturnData;
+	clientData: WritableSignal<ReturnData | null> = signal(null);
 
 	constructor(private nui: NuiService) {}
 
@@ -23,11 +23,11 @@ export class ExampleContainerComponent {
 			.then((retData) => {
 				console.log("Got return data from client scripts:");
 				console.dir(retData);
-				this.clientData = retData;
+				this.clientData.set(retData);
 			})
 			.catch((e) => {
 				console.error("Setting mock data due to error", e);
-				this.clientData = { x: 500, y: 300, z: 200 };
+				this.clientData.set({ x: 500, y: 300, z: 200 });
 			});
 	}
 }
