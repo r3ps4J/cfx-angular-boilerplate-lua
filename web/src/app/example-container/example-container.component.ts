@@ -1,4 +1,5 @@
 import { Component, WritableSignal, signal } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { NuiService } from "../nui.service";
 
 interface ReturnData {
@@ -9,8 +10,10 @@ interface ReturnData {
 
 @Component({
 	selector: "app-example-container",
+	standalone: true,
+	imports: [CommonModule],
 	templateUrl: "./example-container.component.html",
-	styleUrls: ["./example-container.component.scss"],
+	styleUrl: "./example-container.component.scss",
 })
 export class ExampleContainerComponent {
 	clientData: WritableSignal<ReturnData | null> = signal(null);
