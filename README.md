@@ -10,7 +10,7 @@ This boilerplate was heavily inspired by the [React boilerplate](https://github.
 
 ## Requirements
 
--   [Node ^14.20.0 || ^16.13.0 || ^18.10.0](https://nodejs.org/en/)
+-   [Node ^18.13.0 || ^20.9.0](https://nodejs.org/en/)
 
 _A basic understanding of the modern web development workflow. If you don't know this yet, Angular will not be for you. To get started with Angular go to https://angular.io/start._
 
