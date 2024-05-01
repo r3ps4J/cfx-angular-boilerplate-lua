@@ -84,7 +84,7 @@ _Note: You can register as many observers for the same action as you want._
 
 ```ts
 export class MyComponent implements OnInit {
-	count: number = 0;
+	count: WritableSignal<number> = signal(0);
 
 	constructor(private nui: NuiService) {}
 
@@ -93,7 +93,7 @@ export class MyComponent implements OnInit {
 		this.nui.fromMessageAction<number>("setCount").subscribe({
 			next: (value) => {
 				// Do whatever logic you want here
-				this.counter = value;
+				this.count.set(value);
 			}
 		});
 	}
