@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href /web/dist/",
-    "watch": "ng build --watch --configuration development --base-href /web/dist/",
+    "build": "ng build --base-href /web/dist/browser/",
+    "watch": "ng build --watch --configuration development --base-href /web/dist/browser/",
     "test": "ng test"
   },
   "private": true,
