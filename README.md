@@ -89,7 +89,7 @@ export class MyComponent implements OnInit {
 	constructor(private nui: NuiService) {}
 
 	ngOnInit(): void {
-		// This listens for the "setVisible" message
+		// This listens for the "setCount" message
 		this.nui.fromMessageAction<number>("setCount").subscribe({
 			next: (value) => {
 				// Do whatever logic you want here
