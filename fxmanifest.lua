@@ -13,6 +13,6 @@ server_script "server/**/*.lua"
 ui_page "web/dist/browser/index.html"
 
 files {
-	"web/dist/browser/index.html",
-	"web/dist/browser/**/*",
+    "web/dist/browser/index.html",
+    "web/dist/browser/**/*",
 }
