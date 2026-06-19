@@ -10,11 +10,10 @@ import { NuiService } from "./nui.service";
 import { ExampleContainerComponent } from "./example-container/example-container.component";
 
 @Component({
-	selector: "app-root",
-	standalone: true,
-	imports: [CommonModule, ExampleContainerComponent],
-	templateUrl: "./app.component.html",
-	styleUrl: "./app.component.scss",
+    selector: "app-root",
+    imports: [CommonModule, ExampleContainerComponent],
+    templateUrl: "./app.component.html",
+    styleUrl: "./app.component.scss"
 })
 export class AppComponent implements OnInit {
 	visible: WritableSignal<boolean> = signal(false);

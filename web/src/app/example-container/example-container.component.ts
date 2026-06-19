@@ -9,11 +9,10 @@ interface ReturnData {
 }
 
 @Component({
-	selector: "app-example-container",
-	standalone: true,
-	imports: [CommonModule],
-	templateUrl: "./example-container.component.html",
-	styleUrl: "./example-container.component.scss",
+    selector: "app-example-container",
+    imports: [CommonModule],
+    templateUrl: "./example-container.component.html",
+    styleUrl: "./example-container.component.scss"
 })
 export class ExampleContainerComponent {
 	clientData: WritableSignal<ReturnData | null> = signal(null);
