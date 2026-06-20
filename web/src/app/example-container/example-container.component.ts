@@ -1,5 +1,5 @@
 import { Component, WritableSignal, signal } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { JsonPipe } from "@angular/common";
 import { NuiService } from "../nui.service";
 
 interface ReturnData {
@@ -10,7 +10,7 @@ interface ReturnData {
 
 @Component({
     selector: "app-example-container",
-    imports: [CommonModule],
+    imports: [JsonPipe],
     templateUrl: "./example-container.component.html",
     styleUrl: "./example-container.component.scss",
 })
