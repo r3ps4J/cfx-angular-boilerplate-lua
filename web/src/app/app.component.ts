@@ -1,10 +1,4 @@
-import {
-    Component,
-    HostListener,
-    OnInit,
-    WritableSignal,
-    signal,
-} from "@angular/core";
+import { Component, HostListener, OnInit, WritableSignal, signal } from "@angular/core";
 
 import { NuiService } from "./nui.service";
 import { ExampleContainerComponent } from "./example-container/example-container.component";
@@ -13,7 +7,7 @@ import { ExampleContainerComponent } from "./example-container/example-container
     selector: "app-root",
     imports: [ExampleContainerComponent],
     templateUrl: "./app.component.html",
-    styleUrl: "./app.component.scss"
+    styleUrl: "./app.component.scss",
 })
 export class AppComponent implements OnInit {
     visible: WritableSignal<boolean> = signal(false);

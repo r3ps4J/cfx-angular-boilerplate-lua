@@ -12,7 +12,7 @@ interface ReturnData {
     selector: "app-example-container",
     imports: [CommonModule],
     templateUrl: "./example-container.component.html",
-    styleUrl: "./example-container.component.scss"
+    styleUrl: "./example-container.component.scss",
 })
 export class ExampleContainerComponent {
     clientData: WritableSignal<ReturnData | null> = signal(null);
