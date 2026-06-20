@@ -5,13 +5,13 @@ import {
     WritableSignal,
     signal,
 } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 import { NuiService } from "./nui.service";
 import { ExampleContainerComponent } from "./example-container/example-container.component";
 
 @Component({
     selector: "app-root",
-    imports: [CommonModule, ExampleContainerComponent],
+    imports: [ExampleContainerComponent],
     templateUrl: "./app.component.html",
     styleUrl: "./app.component.scss"
 })
