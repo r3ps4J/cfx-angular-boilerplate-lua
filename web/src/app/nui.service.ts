@@ -1,4 +1,4 @@
-import { Injectable, isDevMode } from "@angular/core";
+import { isDevMode, Service } from "@angular/core";
 import { fromEvent, Observable, Subject } from "rxjs";
 
 interface NuiMessage<T = any> {
@@ -6,9 +6,7 @@ interface NuiMessage<T = any> {
     data: T;
 }
 
-@Injectable({
-    providedIn: "root",
-})
+@Service()
 export class NuiService {
     private resourceName: string = (window as any).GetParentResourceName
         ? (window as any).GetParentResourceName()
