@@ -54,7 +54,10 @@ export class NuiService {
         return this.actionObservables[action];
     }
 
-    public createWritableMessageActionSignal<T = any>(action: string, initialValue?: T): WritableSignal<T> {
+    public createWritableMessageActionSignal<T = any>(
+        action: string,
+        initialValue?: T
+    ): WritableSignal<T> {
         if (!this.actionSignals[action]) {
             this.actionSignals[action] = signal<T | undefined>(initialValue);
         }
