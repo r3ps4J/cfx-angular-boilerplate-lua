@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, WritableSignal, signal } from "@angular/core";
+import { Component, HostListener, OnInit, WritableSignal, signal, inject } from "@angular/core";
 
 import { NuiService } from "./nui.service";
 import { ExampleContainerComponent } from "./example-container/example-container.component";
@@ -10,10 +10,10 @@ import { ExampleContainerComponent } from "./example-container/example-container
     styleUrl: "./app.component.scss",
 })
 export class AppComponent implements OnInit {
+    private nui = inject(NuiService);
+
     // This listens for the "setVisible" message
     visible = this.nui.createWritableMessageActionSignal("setVisible");
-
-    constructor(private nui: NuiService) {}
 
     ngOnInit(): void {
         // This will set the NUI to visible if we are developing in browser

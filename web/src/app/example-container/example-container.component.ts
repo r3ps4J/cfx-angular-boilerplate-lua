@@ -1,4 +1,4 @@
-import { Component, WritableSignal, signal } from "@angular/core";
+import { Component, WritableSignal, signal, inject } from "@angular/core";
 import { JsonPipe } from "@angular/common";
 import { NuiService } from "../nui.service";
 
@@ -15,9 +15,9 @@ interface ReturnData {
     styleUrl: "./example-container.component.scss",
 })
 export class ExampleContainerComponent {
-    clientData: WritableSignal<ReturnData | null> = signal(null);
+    private nui = inject(NuiService);
 
-    constructor(private nui: NuiService) {}
+    clientData: WritableSignal<ReturnData | null> = signal(null);
 
     handleGetClientData() {
         this.nui
