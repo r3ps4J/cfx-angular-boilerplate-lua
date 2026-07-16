@@ -1,4 +1,4 @@
-import { isDevMode, Service } from "@angular/core";
+import { isDevMode, Service, signal, Signal, WritableSignal } from "@angular/core";
 import { fromEvent, Observable, Subject } from "rxjs";
 
 interface NuiMessage<T = any> {
@@ -14,15 +14,16 @@ export class NuiService {
 
     private messageObservable: Observable<MessageEvent>;
     private actionObservables: Record<string, Subject<any>> = {};
-
-    private lastMessages: Record<string, any> = {};
+    private actionSignals: Record<string, WritableSignal<any>> = {};
 
     constructor() {
         this.messageObservable = fromEvent<MessageEvent<NuiMessage>>(window, "message");
         this.messageObservable.subscribe((event: MessageEvent<NuiMessage>) => {
-            this.lastMessages[event.data.action] = event.data;
             if (this.actionObservables[event.data.action]) {
                 this.actionObservables[event.data.action].next(event.data.data);
+            }
+            if (this.actionSignals[event.data.action]) {
+                this.actionSignals[event.data.action].set(event.data.data);
             }
         });
     }
@@ -53,8 +54,15 @@ export class NuiService {
         return this.actionObservables[action];
     }
 
-    public getLastMessageData<T = any>(action: string): T | false {
-        return this.lastMessages[action] ?? false;
+    public createWritableMessageActionSignal<T = any>(action: string, initialValue?: T): WritableSignal<T> {
+        if (!this.actionSignals[action]) {
+            this.actionSignals[action] = signal<T | undefined>(initialValue);
+        }
+        return this.actionSignals[action];
+    }
+
+    public createMessageActionSignal<T = any>(action: string, initialValue?: T): Signal<T> {
+        return this.createWritableMessageActionSignal(action, initialValue).asReadonly();
     }
 
     public dispatchDebugMessages<P>(events: NuiMessage<P>[], timeout = 1000): void {

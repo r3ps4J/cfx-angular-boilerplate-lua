@@ -30,7 +30,7 @@ This boilerplate comes with some utilities and examples to work off of.
 
 **SendAngularMessage**
 
-This is a small wrapper for dispatching NUI messages. This is designed to be used with the `fromMessageAction` function of the NuiService in Angular.
+This is a small wrapper for dispatching NUI messages. This is designed to be used with the `fromMessageAction`, `createWritableMessageActionSignal` and `createMessageActionSignal` functions of the NuiService in Angular.
 
 Signature
 
@@ -100,22 +100,60 @@ export class MyComponent implements OnInit {
 }
 ```
 
-**getLastMessageData**
+**createMessageActionSignal**
 
-This function returns the last data received for a certain action. Useful when a component is rendered after the event has been dispatched but still needs that data (i.e. an application on a phone which gets updated by a loop).
+This function returns a signal which gets updated based on a certain NUI message action. This is the primary way of creating passive listeners.
+
+_Notes:_
+
+- _You can create a signal for the same action as many times as you want, it will not create a new one but instead return the same one._
+- _When you create a signal for an event that was created before, the current value of the signal is available immediately._
+- _In order to "subscribe" to a signal the way you may do using events you should use the `effect` method from Angular._
+- _If a message is received but the value hasn't changed, the effects will not be triggered. This means you cannot use this if you update the state on the NUI side, like with setVisible. Take a look at `createWritableMessageActionStore` if you need this._
 
 **Usage**
 
 ```ts
 export class MyComponent {
-    constructor(private data: DataService) {
-        let lastData = this.data.getLastMessageData<Player>("updatePlayer");
-        if (lastData) {
-            this.player = lastData;
-        }
+    constructor(private nui: NuiService) {
+        const visible = this.nui.createMessageActionSignal<boolean>("setVisible", false /* Optional initial value */);
     }
 }
 ```
+
+**createWritableMessageActionSignal**
+
+This function returns a signal which gets updated based on a certain NUI message action. This is the primary way of creating passive listeners.
+
+_Notes:_
+
+- _You can create a signal for the same action as many times as you want, it will not create a new one but instead return the same one._
+- _When you create a signal for an event that was created before, the current value of the signal is available immediately._
+- _In order to "subscribe" to a signal the way you may do using events you should use the `effect` method from Angular._
+- _If a message is received but the value hasn't changed, the effects will not be triggered. This means you cannot use this if you update the state on the NUI side, like with setVisible. Take a look at `createWritableMessageActionStore` if you need this._
+
+**Usage**
+
+```ts
+export class MyComponent {
+    constructor(private nui: NuiService) {
+        const visible = this.nui.createWritableMessageActionSignal<boolean>("setVisible", false /* Optional initial value */);
+        
+		effect(() => {
+			if (visible()) {
+				console.log("Hello!");
+			} else {
+				console.log("Goodbye!");
+			}
+		})
+
+		visible.set(true); // Will print "Hello!"
+		visible.set(false); // Will print "Goodbye!"
+    }
+}
+```
+
+_Note: if you use a signal for the same event somewhere else in your application, it will also have the updated state regardless of whether you are using a writeable or readonly version of the signal. If you wish to do so, you can wrap this in a custom service including fetchNui to update the lua side of the resource right away._
 
 **fetchNui**
 

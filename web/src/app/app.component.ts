@@ -10,18 +10,12 @@ import { ExampleContainerComponent } from "./example-container/example-container
     styleUrl: "./app.component.scss",
 })
 export class AppComponent implements OnInit {
-    visible: WritableSignal<boolean> = signal(false);
+    // This listens for the "setVisible" message
+    visible = this.nui.createWritableMessageActionSignal("setVisible");
 
     constructor(private nui: NuiService) {}
 
     ngOnInit(): void {
-        // This listens for the "setVisible" message
-        this.nui.fromMessageAction<boolean>("setVisible").subscribe({
-            next: (value) => {
-                this.visible.set(value);
-            },
-        });
-
         // This will set the NUI to visible if we are developing in browser
         this.nui.dispatchDebugMessages([
             {
