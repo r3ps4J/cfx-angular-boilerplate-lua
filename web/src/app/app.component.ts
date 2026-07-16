@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, WritableSignal, signal, inject } from "@angular/core";
+import { Component, HostListener, OnInit, inject } from "@angular/core";
 
 import { NuiService } from "./nui.service";
 import { ExampleContainerComponent } from "./example-container/example-container.component";
